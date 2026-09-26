@@ -24,6 +24,7 @@ const shuffleBtn = document.getElementById('shuffle-btn');
 // عناصر شاشة البداية (Overlay)
 const startOverlay = document.getElementById('start-overlay');
 const startGameBtn = document.getElementById('start-game-btn');
+const overlayTargetBtn = document.getElementById('overlay-target-btn');
 
 // عناصر الـ DOM - النوافذ المنبثقة
 const targetModal = document.getElementById('target-modal');
@@ -64,7 +65,7 @@ logoutBtn.addEventListener('click', () => {
   authScreen.classList.remove('hidden');
 });
 
-// 3. زر "ابدأ التحدي" اللي بقلب اللوحة
+// 3. زر "ابدأ التحدي" بشاشة البداية
 startGameBtn.addEventListener('click', () => {
   startOverlay.classList.add('hidden-overlay');
   isGameActive = true;
@@ -111,7 +112,6 @@ function startNewGame(showStartOverlay = true) {
 
 // 6. رسم المربعات بالشبكة
 function renderBoard() {
-  // تنظيف المربعات القديمة بس (بدون مسح الـ Overlay)
   const tilesToRemove = boardElement.querySelectorAll('.tile');
   tilesToRemove.forEach(t => t.remove());
 
@@ -167,7 +167,7 @@ function isWinning(state) {
   return state[8] === null;
 }
 
-// 9. הפوز وعرض الوقت
+// 9. الفوز وعرض الوقت
 function handleWin() {
   clearInterval(timerInterval);
   isGameActive = false;
@@ -201,7 +201,12 @@ function formatTime(totalSeconds) {
   return `${m}:${s}`;
 }
 
-// أزرار المودال والإغلاق
+// زر الترتيب الصحيح من الواجهة الأولى
+overlayTargetBtn.addEventListener('click', () => {
+  targetModal.classList.add('show');
+});
+
+// زر الترتيب الصحيح من لوحة التحكم السفلية
 targetPreviewBtn.addEventListener('click', () => {
   targetModal.classList.add('show');
 });
@@ -216,12 +221,12 @@ window.addEventListener('click', (e) => {
   }
 });
 
-// خلط اللعبة من جديد بيرجع يعرض شاشة البداية
+// خلط جديد
 shuffleBtn.addEventListener('click', () => {
   startNewGame(true); 
 });
 
-// اللعب مرة تانية بيرجع يعرض شاشة البداية
+// اللعب مجدداً
 playAgainBtn.addEventListener('click', () => {
   winModal.classList.remove('show');
   startNewGame(true);
