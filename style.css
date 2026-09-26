@@ -1,0 +1,360 @@
+:root {
+  --bg-dark: #0a0e17;
+  --card-bg: rgba(22, 29, 47, 0.75);
+  --card-border: rgba(255, 255, 255, 0.08);
+  --primary: #00ffaa;
+  --primary-glow: rgba(0, 255, 170, 0.45);
+  --secondary: #6366f1;
+  --text-main: #f8fafc;
+  --text-dim: #94a3b8;
+  --tile-bg: linear-gradient(135deg, #1e293b, #0f172a);
+  --radius: 20px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Tajawal', 'Outfit', sans-serif;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+body {
+  min-height: 100vh;
+  min-height: 100dvh;
+  background-color: var(--bg-dark);
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: clamp(12px, 3vw, 24px);
+  overflow-x: hidden;
+}
+
+/* خلفيات النيون */
+.background-glow {
+  position: absolute;
+  width: clamp(250px, 45vw, 500px);
+  height: clamp(250px, 45vw, 500px);
+  border-radius: 50%;
+  filter: blur(clamp(80px, 12vw, 150px));
+  z-index: 0;
+  opacity: 0.22;
+  pointer-events: none;
+}
+.glow-1 { background: var(--primary); top: 5%; left: 5%; }
+.glow-2 { background: var(--secondary); bottom: 5%; right: 5%; }
+
+/* كرت تسجيل الدخول */
+.auth-card {
+  position: relative;
+  z-index: 2;
+  background: var(--card-bg);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius);
+  padding: clamp(24px, 5vw, 36px);
+  width: 100%;
+  max-width: 420px;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
+  animation: fadeIn 0.35s ease-out;
+}
+
+.auth-header { text-align: center; margin-bottom: 22px; }
+.game-logo { font-size: clamp(2.5rem, 6vw, 3.2rem); margin-bottom: 8px; }
+.auth-header h2 { font-size: clamp(1.4rem, 4vw, 1.8rem); font-weight: 800; }
+.auth-header p { color: var(--text-dim); font-size: clamp(0.8rem, 2.5vw, 0.9rem); margin-top: 5px; }
+
+.input-group { margin-bottom: 16px; text-align: right; }
+.input-group label { display: block; font-size: 0.85rem; color: var(--text-dim); margin-bottom: 6px; }
+.input-group input {
+  width: 100%;
+  padding: clamp(12px, 2.5vw, 14px) 16px;
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  color: #fff;
+  font-size: clamp(0.9rem, 2.5vw, 1rem);
+  outline: none;
+  transition: all 0.25s ease;
+}
+.input-group input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 15px var(--primary-glow);
+}
+
+/* حاوية اللعبة الرئيسية */
+.game-container {
+  position: relative;
+  z-index: 2;
+  background: var(--card-bg);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  border: 1px solid var(--card-border);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius);
+  padding: clamp(18px, 4vw, 30px);
+  width: 100%;
+  max-width: 440px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(14px, 2.5vh, 22px);
+  animation: fadeIn 0.35s ease-out;
+}
+
+.hidden { display: none !important; }
+
+/* رأس اللعبة والترحيب */
+.user-greeting {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  background: rgba(15, 23, 42, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 8px 14px;
+  border-radius: 12px;
+  margin-bottom: 8px;
+  font-size: clamp(0.8rem, 2.5vw, 0.9rem);
+}
+.user-greeting strong { color: var(--primary); }
+.btn-logout {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: var(--text-dim);
+  padding: 4px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  transition: all 0.2s ease;
+}
+.btn-logout:hover {
+  background: rgba(239, 68, 68, 0.15);
+  border-color: #ef4444;
+  color: #ef4444;
+}
+
+.header { text-align: center; width: 100%; }
+.title { font-size: clamp(1.4rem, 4.5vw, 1.85rem); font-weight: 900; }
+.title span { color: var(--primary); text-shadow: 0 0 15px var(--primary-glow); font-family: 'Outfit', sans-serif; }
+.subtitle { color: var(--text-dim); font-size: clamp(0.75rem, 2.3vw, 0.85rem); margin-top: 4px; }
+
+/* الإحصائيات */
+.stats-board { display: flex; gap: clamp(8px, 2vw, 14px); width: 100%; }
+.stat-box {
+  flex: 1;
+  background: rgba(15, 23, 42, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 14px;
+  padding: clamp(8px, 2vw, 12px);
+  text-align: center;
+}
+.stat-label { display: block; font-size: clamp(0.7rem, 2.2vw, 0.8rem); color: var(--text-dim); margin-bottom: 2px; }
+.stat-value { font-size: clamp(1.2rem, 3.8vw, 1.45rem); font-weight: 800; color: #fff; font-family: 'Outfit', sans-serif; }
+
+/* الحاوية المتجاوبة للشبكة */
+.board-wrapper { width: 100%; display: flex; justify-content: center; }
+
+.puzzle-board {
+  position: relative;
+  width: min(82vw, 330px);
+  height: min(82vw, 330px);
+  background: rgba(10, 14, 23, 0.85);
+  border-radius: clamp(12px, 3vw, 18px);
+  border: 2px solid rgba(255, 255, 255, 0.06);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: clamp(6px, 1.8vw, 10px);
+  padding: clamp(8px, 2vw, 12px);
+  box-shadow: inset 0 4px 15px rgba(0, 0, 0, 0.6);
+  overflow: hidden;
+}
+
+/* شاشة البداية المنبثقة فوق اللوحة */
+.game-start-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 14, 23, 0.95);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+  z-index: 10;
+  transition: opacity 0.35s ease, visibility 0.35s;
+}
+.game-start-overlay.hidden-overlay {
+  opacity: 0;
+  visibility: hidden;
+}
+.game-start-overlay h3 { color: var(--primary); font-size: clamp(1.1rem, 3.5vw, 1.3rem); margin-bottom: 8px; }
+.game-start-overlay p { color: var(--text-dim); font-size: clamp(0.75rem, 2.5vw, 0.9rem); line-height: 1.6; margin-bottom: 18px; }
+
+/* المربعات */
+.tile {
+  background: var(--tile-bg);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: clamp(8px, 2vw, 12px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(1.4rem, 5.5vw, 2rem);
+  font-weight: 800;
+  font-family: 'Outfit', sans-serif;
+  color: #ffffff;
+  cursor: pointer;
+  transition: transform 0.16s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s, border-color 0.2s;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+@media (hover: hover) {
+  .tile:hover {
+    transform: translateY(-2px) scale(1.02);
+    border-color: var(--primary);
+    box-shadow: 0 10px 18px rgba(0, 0, 0, 0.4), 0 0 12px var(--primary-glow);
+  }
+}
+.tile:active { transform: scale(0.95); }
+.tile.empty {
+  background: transparent;
+  border: 1px dashed rgba(255, 255, 255, 0.12);
+  box-shadow: none;
+  cursor: default;
+  pointer-events: none;
+}
+.tile.in-position {
+  border-color: rgba(0, 255, 170, 0.45);
+  color: var(--primary);
+}
+
+/* الأزرار */
+.controls { display: flex; gap: 10px; width: 100%; }
+.btn {
+  flex: 1;
+  padding: clamp(10px, 2.5vw, 13px) clamp(12px, 3vw, 18px);
+  border-radius: 12px;
+  border: none;
+  font-size: clamp(0.85rem, 2.5vw, 0.95rem);
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.22s ease;
+}
+.full-width { width: 100%; }
+.btn-primary {
+  background: linear-gradient(135deg, #00ffaa, #00b4d8);
+  color: #071018;
+  box-shadow: 0 6px 18px rgba(0, 255, 170, 0.3);
+}
+.btn-primary:hover {
+  filter: brightness(1.1);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 255, 170, 0.45);
+}
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-main);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.btn-secondary:hover { background: rgba(255, 255, 255, 0.1); transform: translateY(-2px); }
+
+/* النوافذ المنبثقة (Modals) */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.82);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.28s ease;
+  z-index: 100;
+  padding: 16px;
+}
+.modal.show { opacity: 1; pointer-events: auto; }
+.modal-card {
+  background: #111827;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 22px;
+  padding: clamp(22px, 5vw, 32px) clamp(16px, 4vw, 24px);
+  text-align: center;
+  max-width: 350px;
+  width: 100%;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.7);
+  transform: scale(0.9);
+  transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.modal.show .modal-card { transform: scale(1); }
+
+/* شبكة الترتيب المصغرة */
+.target-desc { font-size: clamp(0.75rem, 2.3vw, 0.85rem); color: var(--text-dim); margin: 6px 0 14px 0; }
+.mini-board {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 6px;
+  background: rgba(0, 0, 0, 0.4);
+  padding: 8px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  margin-bottom: 18px;
+}
+.mini-tile {
+  background: var(--tile-bg);
+  border: 1px solid rgba(0, 255, 170, 0.3);
+  border-radius: 8px;
+  height: clamp(40px, 10vw, 50px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(1rem, 3.2vw, 1.25rem);
+  font-weight: 800;
+  font-family: 'Outfit', sans-serif;
+  color: var(--primary);
+}
+.mini-tile.empty-preview {
+  background: transparent;
+  border: 1px dashed rgba(255, 255, 255, 0.2);
+  color: var(--text-dim);
+  font-size: 0.75rem;
+  font-weight: normal;
+}
+
+/* كرت الفوز */
+.win-badge { font-size: clamp(2.8rem, 8vw, 3.5rem); margin-bottom: 8px; animation: bounce 1s infinite alternate; }
+.win-summary {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 12px;
+  border-radius: 12px;
+  margin: 16px 0;
+  font-size: clamp(0.85rem, 2.5vw, 0.95rem);
+  color: var(--text-dim);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.win-summary span { color: var(--primary); font-weight: bold; }
+
+@keyframes bounce { from { transform: translateY(0); } to { transform: translateY(-7px); } }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+/* شاشات الارتفاع الصغير متل الموبايل بالعرض */
+@media (max-height: 600px) and (orientation: landscape) {
+  body { padding: 10px; }
+  .game-container { flex-direction: row; max-width: 600px; gap: 16px; }
+  .puzzle-board { width: 220px; height: 220px; }
+}

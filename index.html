@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title> 8-Puzzle🧩</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconne ct" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- إضاءات الخلفية -->
+  <div class="background-glow glow-1"></div>
+  <div class="background-glow glow-2"></div>
+
+  <!-- 1. واجهة تسجيل الدخول -->
+  <section class="auth-card" id="auth-screen">
+    <div class="auth-header">
+      <div class="game-logo">🧩</div>
+      <h2>تسجيل الدخول</h2>
+      <p>أهلاً بك! يرجى إدخال البيانات لبدء التحدي</p>
+    </div>
+    <form id="login-form">
+      <div class="input-group">
+        <label for="username">اسم المستخدم</label>
+        <input type="text" id="username" placeholder="اكتب الاسم هنا..." required autocomplete="off">
+      </div>
+      <div class="input-group">
+        <label for="password">كلمة المرور</label>
+        <input type="password" id="password" placeholder="••••••••" required>
+      </div>
+      <button type="submit" class="btn btn-primary full-width">دخول إلى اللعبة 🚀</button>
+    </form>
+  </section>
+
+  <!-- 2. واجهة اللعبة الرئيسية -->
+  <main class="game-container hidden" id="game-screen">
+    <header class="header">
+      <div class="user-greeting">
+        <span>مرحباً، <strong id="player-name-display">المستخدم</strong> 👋</span>
+        <button class="btn-logout" id="logout-btn" title="تسجيل خروج">خروج 🚪</button>
+      </div>
+      <h1 class="title">لغز الأرقام <span>3×3</span></h1>
+      <p class="subtitle">رتب المربعات تصاعدياً من 1 إلى 8 واترك الخانة الأخيرة فارغة</p>
+    </header>
+
+    <!-- لوحة الإحصائيات -->
+    <section class="stats-board">
+      <div class="stat-box">
+        <span class="stat-label">الحركات</span>
+        <span class="stat-value" id="moves-count">0</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-label">الوقت المستغرق</span>
+        <span class="stat-value" id="timer">00:00</span>
+      </div>
+    </section>
+
+    <!-- شبكة اللعب -->
+    <div class="board-wrapper">
+      <div class="puzzle-board" id="board">
+        
+        <!-- شاشة البداية المنبثقة فوق اللوحة -->
+        <div class="game-start-overlay" id="start-overlay">
+          <h3>كيفية اللعب 🎮</h3>
+          <p>قم بتحريك المربعات لترتيب الأرقام من 1 إلى 8. المربع الأخير يجب أن يبقى فارغاً. التحدي يعتمد على سرعتك وذكائك!</p>
+          <button class="btn btn-primary" id="start-game-btn">ابدأ التحدي 🔥</button>
+        </div>
+
+        <!-- المربعات بتنزل هون ديناميكياً من الجافاسكريبت -->
+      </div>
+    </div>
+
+    <!-- أزرار التحكم -->
+    <div class="controls">
+      <button class="btn btn-primary" id="shuffle-btn">
+        <span class="btn-icon">🔀</span> خلط جديد
+      </button>
+      <button class="btn btn-secondary" id="target-preview-btn">
+        <span class="btn-icon">🎯</span> الترتيب المطلوب
+      </button>
+    </div>
+  </main>
+
+  <!-- 3. نافذة الترتيب الصحيح -->
+  <div class="modal" id="target-modal">
+    <div class="modal-card">
+      <h3>الترتيب المطلوب للحل 🎯</h3>
+      <p class="target-desc">قم بترتيب الأرقام بالتسلسل التالي واترك المربع الأخير فارغاً:</p>
+      
+      <div class="mini-board">
+        <div class="mini-tile">1</div>
+        <div class="mini-tile">2</div>
+        <div class="mini-tile">3</div>
+        <div class="mini-tile">4</div>
+        <div class="mini-tile">5</div>
+        <div class="mini-tile">6</div>
+        <div class="mini-tile">7</div>
+        <div class="mini-tile">8</div>
+        <div class="mini-tile empty-preview">فارغ</div>
+      </div>
+
+      <button class="btn btn-secondary full-width" id="close-target-btn">متابعة اللعب ✨</button>
+    </div>
+  </div>
+
+  <!-- 4. نافذة الفوز العامة -->
+  <div class="modal" id="win-modal">
+    <div class="modal-card">
+      <div class="win-badge">🏆</div>
+      <h2>فوز رائع ومستحق! 🎉</h2>
+      <p><span id="win-player-name"></span>، تم إنجاز اللغز بنجاح وذكاء!</p>
+      <div class="win-summary">
+        <div>عدد الحركات: <span id="final-moves">0</span></div>
+        <div>الوقت المستغرق: <span id="final-time">00:00</span></div>
+      </div>
+      <button class="btn btn-primary full-width" id="play-again-btn">بدء جولة جديدة 🚀</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
