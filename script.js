@@ -132,7 +132,7 @@ function renderBoard() {
   });
 }
 
-// 7. التعامل مع تحريك المربعات
+// 7. تحريك المربعات بحركة انسيابية سلسة (Smooth Slide Animation)
 function handleTileClick(index) {
   if (!isGameActive) return;
 
@@ -145,17 +145,37 @@ function handleTileClick(index) {
   const isAdjacent = (Math.abs(row - emptyRow) + Math.abs(col - emptyCol)) === 1;
 
   if (isAdjacent) {
-    boardState[emptyIndex] = boardState[index];
-    boardState[index] = null;
+    isGameActive = false; // تجميد اللعب أثناء الأنيميشن لمنع التضارب
 
-    moves++;
-    movesElement.textContent = moves;
-    
-    renderBoard();
+    const tiles = boardElement.querySelectorAll('.tile');
+    const clickedTile = tiles[index];
+    const emptyTile = tiles[emptyIndex];
 
-    if (isWinning(boardState)) {
-      handleWin();
-    }
+    // حساب المسافة الدقيقة بالبكسل للتحرك بسلاسة لموقع الفراغ
+    const rect1 = clickedTile.getBoundingClientRect();
+    const rect2 = emptyTile.getBoundingClientRect();
+    const deltaX = rect2.left - rect1.left;
+    const deltaY = rect2.top - rect1.top;
+
+    clickedTile.style.transition = 'transform 0.22s ease-in-out';
+    clickedTile.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
+    clickedTile.style.zIndex = '5';
+
+    setTimeout(() => {
+      boardState[emptyIndex] = boardState[index];
+      boardState[index] = null;
+
+      moves++;
+      movesElement.textContent = moves;
+
+      renderBoard();
+
+      if (isWinning(boardState)) {
+        handleWin();
+      } else {
+        isGameActive = true;
+      }
+    }, 220);
   }
 }
 
@@ -201,12 +221,11 @@ function formatTime(totalSeconds) {
   return `${m}:${s}`;
 }
 
-// زر الترتيب الصحيح من الواجهة الأولى
+// أزرار المودال والإغلاق
 overlayTargetBtn.addEventListener('click', () => {
   targetModal.classList.add('show');
 });
 
-// زر الترتيب الصحيح من لوحة التحكم السفلية
 targetPreviewBtn.addEventListener('click', () => {
   targetModal.classList.add('show');
 });
