@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title> 8-Puzzle🧩</title>
+  <title>لعبة ترتيب الأرقام | 8-Puzzle</title>
   <link rel="stylesheet" href="style.css">
-  <link rel="preconne ct" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
 </head>
 <body>
 
-  <!-- إضاءات الخلفية -->
+  <!-- إضاءات الخلفية الجمالية -->
   <div class="background-glow glow-1"></div>
   <div class="background-glow glow-2"></div>
 
@@ -58,7 +58,7 @@
       </div>
     </section>
 
-    <!-- شبكة اللعب -->
+    <!-- شبكة اللعب المتضمنة لشاشة البداية -->
     <div class="board-wrapper">
       <div class="puzzle-board" id="board">
         
@@ -66,14 +66,17 @@
         <div class="game-start-overlay" id="start-overlay">
           <h3>كيفية اللعب 🎮</h3>
           <p>قم بتحريك المربعات لترتيب الأرقام من 1 إلى 8. المربع الأخير يجب أن يبقى فارغاً. التحدي يعتمد على سرعتك وذكائك!</p>
-          <button class="btn btn-primary" id="start-game-btn">ابدأ التحدي 🔥</button>
+          <div class="overlay-actions">
+            <button class="btn btn-primary" id="start-game-btn">ابدأ التحدي 🔥</button>
+            <button class="btn btn-secondary" id="overlay-target-btn">الترتيب الصحيح 🎯</button>
+          </div>
         </div>
 
         <!-- المربعات بتنزل هون ديناميكياً من الجافاسكريبت -->
       </div>
     </div>
 
-    <!-- أزرار التحكم -->
+    <!-- أزرار التحكم السفلية -->
     <div class="controls">
       <button class="btn btn-primary" id="shuffle-btn">
         <span class="btn-icon">🔀</span> خلط جديد
@@ -84,7 +87,7 @@
     </div>
   </main>
 
-  <!-- 3. نافذة الترتيب الصحيح -->
+  <!-- 3. نافذة الترتيب الصحيح (Modal) -->
   <div class="modal" id="target-modal">
     <div class="modal-card">
       <h3>الترتيب المطلوب للحل 🎯</h3>
